@@ -1,134 +1,351 @@
-ogg-calculator<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="hy">
 <head>
   <meta charset="UTF-8">
-  <title>ՕԳԳ հաշվիչ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ՕԳԳ Հաշվիչ • Հայկական</title>
   <style>
+    /* ===== RESET & BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+    }
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+      min-height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      margin: 0;
-      padding: 20px;
+      align-items: center;
+      padding: 16px;
+      background: radial-gradient(circle at 30% 40%, #1e2b3f 0%, #0b0f17 100%);
+      position: relative;
+      overflow-x: hidden;
     }
 
+    /* === Հայկական նախշեր background-ում (զգեստի զարդեր) === */
+    body::before {
+      content: "⚡⚡⚡";
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 40px;
+      color: rgba(255, 215, 0, 0.1);
+      transform: rotate(-15deg);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255, 75, 75, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      filter: blur(60px);
+      z-index: 0;
+    }
+
+    /* ===== MAIN CARD ===== */
     .calculator {
-      background: white;
-      padding: 30px 40px;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-      text-align: center;
-      max-width: 500px;
+      position: relative;
+      z-index: 10;
+      max-width: 560px;
       width: 100%;
+      background: rgba(20, 30, 45, 0.7);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 48px;
+      padding: 40px 32px;
+      border: 1px solid rgba(255, 215, 0, 0.25);
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 215, 0, 0.1) inset;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      animation: float 6s infinite alternate ease-in-out;
     }
 
+    .calculator:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 40px 70px rgba(0, 0, 0, 0.9), 0 0 0 2px rgba(255, 215, 0, 0.4) inset;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-12px); }
+    }
+
+    /* ===== ՎԵՐՆԱԳԻՐ ===== */
     h2 {
-      color: #333;
-      margin-bottom: 20px;
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      text-align: center;
+      margin-bottom: 32px;
+      background: linear-gradient(135deg, #f5e7b2 0%, #ffb347 50%, #ff7e5f 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 2px 5px rgba(255, 215, 0, 0.3);
+      position: relative;
     }
 
+    h2::after {
+      content: "";
+      display: block;
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #ffd700, #ff8c00, #ff4500);
+      margin: 12px auto 0;
+      border-radius: 4px;
+      box-shadow: 0 0 15px #ffb347;
+    }
+
+    /* ===== INPUT FIELD ===== */
     input {
-      width: 80%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      font-size: 16px;
+      width: 100%;
+      padding: 18px 22px;
+      margin-bottom: 20px;
+      background: rgba(10, 18, 30, 0.7);
+      border: 1.5px solid rgba(255, 215, 0, 0.4);
+      border-radius: 40px;
+      font-size: 1.1rem;
+      color: #f0f4fa;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
     }
 
+    input:focus {
+      border-color: #ffd966;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 8px 20px rgba(0, 0, 0, 0.7);
+      transform: scale(1.02);
+      background: rgba(20, 35, 55, 0.9);
+    }
+
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+      font-style: italic;
+      letter-spacing: 0.3px;
+    }
+
+    /* ===== BUTTON ===== */
     button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 12px 25px;
+      background: linear-gradient(145deg, #ffd966, #ffb347);
       border: none;
-      border-radius: 12px;
-      font-size: 16px;
+      color: #0d1b2a;
+      font-weight: 700;
+      font-size: 1.4rem;
+      padding: 18px 30px;
+      border-radius: 60px;
+      width: 100%;
       cursor: pointer;
-      transition: background 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 15px 25px -5px rgba(255, 180, 60, 0.5), 0 0 0 2px rgba(255, 255, 255, 0.2) inset;
+      transition: all 0.2s ease;
+      margin: 16px 0 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent 70%);
+      transform: rotate(30deg);
+      transition: transform 0.6s;
     }
 
     button:hover {
-      background-color: #45a049;
+      background: linear-gradient(145deg, #ffe083, #ffc165);
+      box-shadow: 0 20px 30px -5px #ffaa33, 0 0 0 4px rgba(255, 255, 200, 0.5) inset;
+      transform: scale(1.02) translateY(-3px);
     }
 
+    button:hover::before {
+      transform: rotate(30deg) translate(20%, 20%);
+    }
+
+    button:active {
+      transform: scale(0.98) translateY(2px);
+      box-shadow: 0 8px 15px #ffaa33;
+    }
+
+    /* ===== RESULT ===== */
     #result {
-      margin-top: 20px;
-      font-size: 20px;
-      font-weight: bold;
-      color: #333;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 60px;
+      padding: 18px 22px;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #ffe484;
+      border: 1px solid #ffd966;
+      box-shadow: 0 0 25px rgba(255, 200, 50, 0.5);
+      margin-bottom: 24px;
+      transition: 0.2s;
     }
 
+    /* ===== INFO BLOCK ===== */
     .info {
+      background: rgba(10, 20, 35, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 36px;
+      padding: 28px 24px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
       margin-top: 25px;
-      font-size: 14px;
-      color: #555;
-      text-align: left;
+      box-shadow: 0 20px 30px -10px black;
+      color: #ddd;
     }
 
-    .info ul {
-      margin: 10px 0;
+    .info h3 {
+      font-size: 1.8rem;
+      color: #ffd966;
+      margin-bottom: 16px;
+      border-left: 6px solid #ffae42;
       padding-left: 20px;
     }
 
+    .info ul {
+      list-style: none;
+      margin: 16px 0;
+    }
+
+    .info li {
+      margin-bottom: 12px;
+      padding-left: 30px;
+      position: relative;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .info li::before {
+      content: "⚡";
+      position: absolute;
+      left: 0;
+      color: #ffb84d;
+      font-size: 1.3rem;
+      filter: drop-shadow(0 0 5px orange);
+    }
+
     .unit {
-      font-weight: bold;
-      color: #2a7ae2;
+      background: #ffd96633;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-weight: 600;
+      color: #ffdb8e;
+      border: 1px solid #f0b342;
+      display: inline-block;
+      margin: 4px 0;
+    }
+
+    strong {
+      color: #ffb854;
+      font-weight: 700;
+    }
+
+    .example {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #bbb;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 14px;
+      border-radius: 40px;
+      border: 1px dashed #ffa726;
+      margin-bottom: 15px;
+    }
+
+    /* ===== HAYKAKAN NAKHSH ===== */
+    .calculator::before {
+      content: "🇦🇲";
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      font-size: 3rem;
+      opacity: 0.2;
+      transform: rotate(10deg);
+      pointer-events: none;
+    }
+
+    /* ===== ADAPTIVE ===== */
+    @media (max-width: 500px) {
+      .calculator {
+        padding: 28px 18px;
+        border-radius: 36px;
+      }
+      h2 {
+        font-size: 1.8rem;
+      }
+      button {
+        font-size: 1.2rem;
+        padding: 14px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="calculator">
-    <h2>ՕԳԳ (Օգտակար գործողության գործակից) հաշվիչ</h2>
+    <h2>⚡ ՕԳԳ հաշվիչ ⚡</h2>
 
-    <input type="number" id="useful" placeholder="Օգտակար էներգիա (Ջ)">
-    <input type="number" id="total" placeholder="Ընդհանուր էներգիա (Ջ)">
+    <input type="number" id="useful" placeholder="Օգտակար էներգիա (Ջ) — օր. 75">
+    <input type="number" id="total" placeholder="Ընդհանուր էներգիա (Ջ) — օր. 150">
 
-    <br>
-    <button onclick="calc()">Հաշվել ՕԳԳ</button>
+    <button onclick="calc()">🔥 հաշվել 🔥</button>
 
-    <p id="result"></p>
-    <p class="example">Օրինակ՝ Օգտակար=40Ջ, Ընդհանուր=100Ջ → ՕԳԳ=40%</p>
+    <div id="result">—</div>
+
+    <p class="example">📐 Օրինակ՝ 75Ջ / 150Ջ = 50%</p>
 
     <div class="info">
-      <h3>Տեղեկատվություն ՕԳԳ-ի մասին</h3>
-      <p>ՕԳԳ-ն ցույց է տալիս սարքի կամ համակարգի ստացված էներգիայի քանի տոկոսն է օգտագործվում օգտակար աշխատանքի համար:</p>
+      <h3>📘 Ի՞նչ է ՕԳԳ-ն</h3>
+      <p>Օգտակար գործողության գործակիցը ցույց է տալիս, թե սարքին տրված ընդհանուր էներգիայի որ մասն է վերածվում օգտակար աշխատանքի։</p>
       <ul>
-        <li>Հաշվում է բանաձևով՝ <span class="unit">ՕԳԳ (%) = (Օգտակար էներգիա / Ընդհանուր էներգիա) × 100</span></li>
-        <li>Օգտակար էներգիայի միավորը սովորաբար Ջ է</li>
-        <li>Ընդհանուր էներգիայի միավորը նույնպես Ջ է</li>
-        <li>ՕԳԳ-ն միշտ արտահայտվում է տոկոսներով (%)</li>
-        <li>ՕԳԳ = 100% նշանակում է, որ սարքը կորուստներ չունի, իսկ ՕԳԳ < 100% նշանակում է, որ մի մասը էներգիայի կորուստ է տաքացում, դիմադրություն կամ այլ պատճառներով</li>
+        <li><span class="unit">Բանաձև՝ η = (A_օգտ / A_ընդ) × 100%</span></li>
+        <li><span class="unit">Օգտակար էներգիա (Ջ)</span> – էներգիա, որն օգտագործվում է նպատակային աշխատանքի համար</li>
+        <li><span class="unit">Ընդհանուր էներգիա (Ջ)</span> – ամբողջ սպառված էներգիան</li>
+        <li><strong>100%</strong> նշանակում է իդեալական (առանց կորստի)</li>
+        <li><strong>↓ 100%</strong> ցույց է տալիս կորուստները (ջերմություն, շփում, դիմադրություն)</li>
       </ul>
-      <p>ՕԳԳ-ն կարևոր է, օրինակ՝ <strong>արևային վահանակների, մեքենաների, շարժիչների և էլեկտրասարքերի</strong> արդյունավետությունը գնահատելու համար:</p>
+      <p style="margin-top: 18px; border-top: 1px solid #ffd96633; padding-top: 18px;">🔹 <strong>Կարևոր է՝</strong> արևային վահանակներ, էլ․ շարժիչներ, մեքենաներ, տրանսֆորմատորներ — ամենուր ՕԳԳ-ն արդյունավետության գլխավոր չափանիշն է։</p>
     </div>
   </div>
 
   <script>
     function calc() {
-      var useful = parseFloat(document.getElementById("useful").value);
-      var total = parseFloat(document.getElementById("total").value);
+      const useful = parseFloat(document.getElementById("useful").value);
+      const total = parseFloat(document.getElementById("total").value);
+      const resultEl = document.getElementById("result");
 
       if (isNaN(useful) || isNaN(total) || total === 0) {
-        document.getElementById("result").innerHTML = "Խնդրում ենք մուտքագրել ճիշտ թվեր";
+        resultEl.innerHTML = "⛔ Սխալ. մուտքագրեք ճիշտ թվեր";
+        resultEl.style.color = "#ff8888";
         return;
       }
 
-      var eta = (useful / total) * 100;
+      let eta = (useful / total) * 100;
+      
+      if (eta > 100) eta = 100;
 
-      // Ստուգում, որպեսզի ՕԳԳ-ը 100%-ից բարձր չլինի
-      if (eta > 100) {
-        eta = 100;
-        document.getElementById("result").innerHTML = "ՕԳԳ = 100% (առավելագույնը)";
-      } else {
-        document.getElementById("result").innerHTML = "ՕԳԳ = " + eta.toFixed(2) + " %";
+      resultEl.innerHTML = `⚡ ՕԳԳ = ${eta.toFixed(2)} % ⚡`;
+      resultEl.style.color = "#ffe484";
+
+      // маленький эффект — тряска при классном результате
+      if (eta > 90) {
+        resultEl.style.transition = "0.1s";
+        resultEl.style.transform = "scale(1.1)";
+        setTimeout(() => resultEl.style.transform = "scale(1)", 200);
       }
     }
   </script>
 </body>
 </html>
-
-
-Այս կոդը պետք է դառնա կայք հասանելի բոլորին
