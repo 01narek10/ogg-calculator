@@ -321,31 +321,27 @@
   </div>
 
   <script>
-    function calc() {
-      const useful = parseFloat(document.getElementById("useful").value);
-      const total = parseFloat(document.getElementById("total").value);
-      const resultEl = document.getElementById("result");
+function calc() {
+  var useful = parseFloat(document.getElementById("useful").value);
+  var total = parseFloat(document.getElementById("total").value);
+  var result = document.getElementById("result");
 
-      if (isNaN(useful) || isNaN(total) || total === 0) {
-        resultEl.innerHTML = "⛔ Սխալ. մուտքագրեք ճիշտ թվեր";
-        resultEl.style.color = "#ff8888";
-        return;
-      }
+  if (isNaN(useful) || isNaN(total) || total === 0) {
+    result.innerHTML = "Խնդրում ենք մուտքագրել ճիշտ թվեր";
+    return;
+  }
 
-      let eta = (useful / total) * 100;
-      
-      if (eta > 100) eta = 100;
+  // ✅ Եթե օգտակարը մեծ է ընդհանուրից
+  if (useful > total) {
+    result.innerHTML = "⚠️ Սխալ․ Օգտակար էներգիան չի կարող մեծ լինել ընդհանուրից";
+    result.style.color = "#ff8888";
+    return;
+  }
 
-      resultEl.innerHTML = `⚡ ՕԳԳ = ${eta.toFixed(2)} % ⚡`;
-      resultEl.style.color = "#ffe484";
-
-      // маленький эффект — тряска при классном результате
-      if (eta > 90) {
-        resultEl.style.transition = "0.1s";
-        resultEl.style.transform = "scale(1.1)";
-        setTimeout(() => resultEl.style.transform = "scale(1)", 200);
-      }
-    }
+  var eta = (useful / total) * 100;
+  result.innerHTML = "ՕԳԳ = " + eta.toFixed(2) + " %";
+  result.style.color = "#ffe484";
+}
   </script>
 </body>
 </html>
