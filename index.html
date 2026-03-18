@@ -1,0 +1,134 @@
+ogg-calculator<!DOCTYPE html>
+<html lang="hy">
+<head>
+  <meta charset="UTF-8">
+  <title>ՕԳԳ հաշվիչ</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .calculator {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .info {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #555;
+      text-align: left;
+    }
+
+    .info ul {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+
+    .unit {
+      font-weight: bold;
+      color: #2a7ae2;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h2>ՕԳԳ (Օգտակար գործողության գործակից) հաշվիչ</h2>
+
+    <input type="number" id="useful" placeholder="Օգտակար էներգիա (Ջ)">
+    <input type="number" id="total" placeholder="Ընդհանուր էներգիա (Ջ)">
+
+    <br>
+    <button onclick="calc()">Հաշվել ՕԳԳ</button>
+
+    <p id="result"></p>
+    <p class="example">Օրինակ՝ Օգտակար=40Ջ, Ընդհանուր=100Ջ → ՕԳԳ=40%</p>
+
+    <div class="info">
+      <h3>Տեղեկատվություն ՕԳԳ-ի մասին</h3>
+      <p>ՕԳԳ-ն ցույց է տալիս սարքի կամ համակարգի ստացված էներգիայի քանի տոկոսն է օգտագործվում օգտակար աշխատանքի համար:</p>
+      <ul>
+        <li>Հաշվում է բանաձևով՝ <span class="unit">ՕԳԳ (%) = (Օգտակար էներգիա / Ընդհանուր էներգիա) × 100</span></li>
+        <li>Օգտակար էներգիայի միավորը սովորաբար Ջ է</li>
+        <li>Ընդհանուր էներգիայի միավորը նույնպես Ջ է</li>
+        <li>ՕԳԳ-ն միշտ արտահայտվում է տոկոսներով (%)</li>
+        <li>ՕԳԳ = 100% նշանակում է, որ սարքը կորուստներ չունի, իսկ ՕԳԳ < 100% նշանակում է, որ մի մասը էներգիայի կորուստ է տաքացում, դիմադրություն կամ այլ պատճառներով</li>
+      </ul>
+      <p>ՕԳԳ-ն կարևոր է, օրինակ՝ <strong>արևային վահանակների, մեքենաների, շարժիչների և էլեկտրասարքերի</strong> արդյունավետությունը գնահատելու համար:</p>
+    </div>
+  </div>
+
+  <script>
+    function calc() {
+      var useful = parseFloat(document.getElementById("useful").value);
+      var total = parseFloat(document.getElementById("total").value);
+
+      if (isNaN(useful) || isNaN(total) || total === 0) {
+        document.getElementById("result").innerHTML = "Խնդրում ենք մուտքագրել ճիշտ թվեր";
+        return;
+      }
+
+      var eta = (useful / total) * 100;
+
+      // Ստուգում, որպեսզի ՕԳԳ-ը 100%-ից բարձր չլինի
+      if (eta > 100) {
+        eta = 100;
+        document.getElementById("result").innerHTML = "ՕԳԳ = 100% (առավելագույնը)";
+      } else {
+        document.getElementById("result").innerHTML = "ՕԳԳ = " + eta.toFixed(2) + " %";
+      }
+    }
+  </script>
+</body>
+</html>
+
+
+Այս կոդը պետք է դառնա կայք հասանելի բոլորին
