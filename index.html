@@ -2,346 +2,359 @@
 <html lang="hy">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ՕԳԳ Հաշվիչ • Հայկական</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>ՕԳԳ + Արևային էներգիա • Հայկական հաշվիչներ</title>
   <style>
     /* ===== RESET & BASE ===== */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
     }
 
     body {
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-      background: radial-gradient(circle at 30% 40%, #1e2b3f 0%, #0b0f17 100%);
+      background: radial-gradient(ellipse at 20% 30%, #0a0f1c 0%, #03060c 100%);
+      font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Poppins', sans-serif;
+      padding: 2rem 1.5rem;
       position: relative;
       overflow-x: hidden;
     }
 
-    /* === Հայկական նախշեր background-ում (զգեստի զարդեր) === */
+    /* հայկական զարդանախշեր */
     body::before {
-      content: "⚡⚡⚡";
-      position: absolute;
-      top: 20px;
+      content: "⚡🇦🇲⚡";
+      position: fixed;
+      bottom: 20px;
       left: 20px;
-      font-size: 40px;
-      color: rgba(255, 215, 0, 0.1);
-      transform: rotate(-15deg);
-      white-space: nowrap;
+      font-size: 70px;
+      opacity: 0.05;
       pointer-events: none;
+      transform: rotate(-10deg);
+      z-index: 0;
     }
 
     body::after {
       content: "";
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(255, 75, 75, 0.15) 0%, transparent 70%);
+      position: fixed;
+      top: -20%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 180, 60, 0.2), transparent 70%);
       border-radius: 50%;
-      filter: blur(60px);
+      filter: blur(80px);
       z-index: 0;
     }
 
-    /* ===== MAIN CARD ===== */
-    .calculator {
+    /* ===== CONTAINER ===== */
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
       position: relative;
       z-index: 10;
-      max-width: 560px;
-      width: 100%;
-      background: rgba(20, 30, 45, 0.7);
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 48px;
-      padding: 40px 32px;
-      border: 1px solid rgba(255, 215, 0, 0.25);
-      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 215, 0, 0.1) inset;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      animation: float 6s infinite alternate ease-in-out;
     }
 
-    .calculator:hover {
-      transform: translateY(-8px) scale(1.01);
-      box-shadow: 0 40px 70px rgba(0, 0, 0, 0.9), 0 0 0 2px rgba(255, 215, 0, 0.4) inset;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      100% { transform: translateY(-12px); }
-    }
-
-    /* ===== ՎԵՐՆԱԳԻՐ ===== */
-    h2 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
+    /* ===== HEADER ===== */
+    .hero {
       text-align: center;
-      margin-bottom: 32px;
-      background: linear-gradient(135deg, #f5e7b2 0%, #ffb347 50%, #ff7e5f 100%);
+      margin-bottom: 3rem;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      background: linear-gradient(135deg, #FFE6B0 0%, #FFB347 50%, #FF7E5F 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      text-shadow: 0 2px 5px rgba(255, 215, 0, 0.3);
-      position: relative;
+      letter-spacing: -0.5px;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
     }
 
-    h2::after {
-      content: "";
-      display: block;
-      width: 100px;
-      height: 4px;
-      background: linear-gradient(90deg, #ffd700, #ff8c00, #ff4500);
-      margin: 12px auto 0;
-      border-radius: 4px;
-      box-shadow: 0 0 15px #ffb347;
-    }
-
-    /* ===== INPUT FIELD ===== */
-    input {
-      width: 100%;
-      padding: 18px 22px;
-      margin-bottom: 20px;
-      background: rgba(10, 18, 30, 0.7);
-      border: 1.5px solid rgba(255, 215, 0, 0.4);
-      border-radius: 40px;
+    .hero p {
+      color: #a0b3d9;
+      margin-top: 10px;
       font-size: 1.1rem;
-      color: #f0f4fa;
-      outline: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      border-bottom: 1px dashed #ffb34755;
+      display: inline-block;
+      padding-bottom: 6px;
     }
 
-    input:focus {
-      border-color: #ffd966;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 8px 20px rgba(0, 0, 0, 0.7);
-      transform: scale(1.02);
-      background: rgba(20, 35, 55, 0.9);
+    /* ===== CARDS GRID ===== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
     }
 
-    input::placeholder {
-      color: rgba(255, 255, 255, 0.4);
-      font-style: italic;
+    /* ===== UNIVERSAL CARD STYLE ===== */
+    .card {
+      background: rgba(20, 30, 48, 0.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 48px;
+      padding: 1.8rem;
+      border: 1px solid rgba(255, 200, 100, 0.25);
+      box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.6);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 35px 50px -20px black;
+      border-color: rgba(255, 200, 100, 0.5);
+    }
+
+    .card h2 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-left: 5px solid #ffb347;
+      padding-left: 20px;
+      color: #ffeaC0;
+    }
+
+    /* inputs group */
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group label {
+      display: block;
+      color: #ccddf8;
+      font-weight: 500;
+      margin-bottom: 8px;
       letter-spacing: 0.3px;
     }
 
-    /* ===== BUTTON ===== */
-    button {
-      background: linear-gradient(145deg, #ffd966, #ffb347);
-      border: none;
-      color: #0d1b2a;
-      font-weight: 700;
-      font-size: 1.4rem;
-      padding: 18px 30px;
-      border-radius: 60px;
+    input, select {
       width: 100%;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      box-shadow: 0 15px 25px -5px rgba(255, 180, 60, 0.5), 0 0 0 2px rgba(255, 255, 255, 0.2) inset;
-      transition: all 0.2s ease;
-      margin: 16px 0 24px;
-      position: relative;
-      overflow: hidden;
+      padding: 14px 18px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 180, 70, 0.5);
+      border-radius: 60px;
+      font-size: 1rem;
+      color: #f5f0e0;
+      outline: none;
+      transition: all 0.2s;
     }
 
-    button::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent 70%);
-      transform: rotate(30deg);
-      transition: transform 0.6s;
+    input:focus, select:focus {
+      border-color: #ffb347;
+      box-shadow: 0 0 10px #ffb34780;
+      background: #0a101ccc;
+    }
+
+    button {
+      background: linear-gradient(100deg, #ffb347, #ff7e2e);
+      border: none;
+      width: 100%;
+      padding: 14px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #0c0f1a;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+      letter-spacing: 1px;
     }
 
     button:hover {
-      background: linear-gradient(145deg, #ffe083, #ffc165);
-      box-shadow: 0 20px 30px -5px #ffaa33, 0 0 0 4px rgba(255, 255, 200, 0.5) inset;
-      transform: scale(1.02) translateY(-3px);
+      transform: scale(1.01);
+      background: linear-gradient(100deg, #ffc15e, #ff9142);
+      box-shadow: 0 8px 22px #ff8c2e80;
     }
 
-    button:hover::before {
-      transform: rotate(30deg) translate(20%, 20%);
-    }
-
-    button:active {
-      transform: scale(0.98) translateY(2px);
-      box-shadow: 0 8px 15px #ffaa33;
-    }
-
-    /* ===== RESULT ===== */
-    #result {
-      background: rgba(0, 0, 0, 0.5);
+    .result-box {
+      background: rgba(0, 0, 0, 0.55);
       backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
       border-radius: 60px;
-      padding: 18px 22px;
+      padding: 16px 20px;
       text-align: center;
-      font-size: 2rem;
-      font-weight: 800;
-      color: #ffe484;
-      border: 1px solid #ffd966;
-      box-shadow: 0 0 25px rgba(255, 200, 50, 0.5);
-      margin-bottom: 24px;
-      transition: 0.2s;
-    }
-
-    /* ===== INFO BLOCK ===== */
-    .info {
-      background: rgba(10, 20, 35, 0.6);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 36px;
-      padding: 28px 24px;
-      border: 1px solid rgba(255, 215, 0, 0.3);
-      margin-top: 25px;
-      box-shadow: 0 20px 30px -10px black;
-      color: #ddd;
-    }
-
-    .info h3 {
-      font-size: 1.8rem;
-      color: #ffd966;
-      margin-bottom: 16px;
-      border-left: 6px solid #ffae42;
-      padding-left: 20px;
-    }
-
-    .info ul {
-      list-style: none;
+      font-size: 1.7rem;
+      font-weight: bold;
+      color: #ffdd99;
+      border: 1px solid #ffb34766;
       margin: 16px 0;
+      word-break: break-word;
     }
 
-    .info li {
-      margin-bottom: 12px;
-      padding-left: 30px;
-      position: relative;
-      font-size: 1rem;
-      line-height: 1.5;
+    .info-text {
+      font-size: 0.85rem;
+      color: #9aaec9;
+      margin-top: 12px;
+      border-top: 1px solid #ffb34733;
+      padding-top: 14px;
+      line-height: 1.4;
     }
 
-    .info li::before {
-      content: "⚡";
-      position: absolute;
-      left: 0;
-      color: #ffb84d;
-      font-size: 1.3rem;
-      filter: drop-shadow(0 0 5px orange);
-    }
-
-    .unit {
-      background: #ffd96633;
+    .unit-badge {
+      background: #ffb34722;
+      border-radius: 30px;
       padding: 4px 12px;
-      border-radius: 40px;
-      font-weight: 600;
-      color: #ffdb8e;
-      border: 1px solid #f0b342;
+      font-size: 0.75rem;
       display: inline-block;
-      margin: 4px 0;
+      color: #ffcf8a;
     }
 
-    strong {
-      color: #ffb854;
-      font-weight: 700;
-    }
-
-    .example {
+    .footnote {
       text-align: center;
-      font-size: 1.2rem;
-      color: #bbb;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 14px;
-      border-radius: 40px;
-      border: 1px dashed #ffa726;
-      margin-bottom: 15px;
+      margin-top: 40px;
+      font-size: 0.8rem;
+      color: #6c7fa0;
+      border-top: 1px solid #223344;
+      padding-top: 20px;
     }
 
-    /* ===== HAYKAKAN NAKHSH ===== */
-    .calculator::before {
-      content: "🇦🇲";
-      position: absolute;
-      top: 16px;
-      right: 24px;
-      font-size: 3rem;
-      opacity: 0.2;
-      transform: rotate(10deg);
-      pointer-events: none;
-    }
-
-    /* ===== ADAPTIVE ===== */
-    @media (max-width: 500px) {
-      .calculator {
-        padding: 28px 18px;
-        border-radius: 36px;
+    @media (max-width: 850px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
       }
-      h2 {
-        font-size: 1.8rem;
+      .hero h1 {
+        font-size: 2rem;
       }
-      button {
-        font-size: 1.2rem;
-        padding: 14px;
+      .result-box {
+        font-size: 1.3rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="calculator">
-    <h2>⚡ ՕԳԳ հաշվիչ ⚡</h2>
+<div class="container">
+  <div class="hero">
+    <h1>⚡ ԷՆԵՐԳԻԱՅԻ ՀԱՇՎԻՉՆԵՐ ⚡</h1>
+    <p>ՕԳԳ (արդյունավետություն) + Արևային էներգիայի տարեկան արտադրություն</p>
+  </div>
 
-    <input type="number" id="useful" placeholder="Օգտակար էներգիա (Ջ) — օր. 75">
-    <input type="number" id="total" placeholder="Ընդհանուր էներգիա (Ջ) — օր. 150">
+  <div class="cards-grid">
+    <!-- ========= 1. ՕԳԳ ՀԱՇՎԻՉ ========= -->
+    <div class="card">
+      <h2>📐 ՕԳԳ հաշվիչ</h2>
+      <div class="input-group">
+        <label>🔆 Օգտակար էներգիա (Ջ)</label>
+        <input type="number" id="useful" placeholder="օր. 750">
+      </div>
+      <div class="input-group">
+        <label>⚡ Ընդհանուր էներգիա (Ջ)</label>
+        <input type="number" id="total" placeholder="օր. 1000">
+      </div>
+      <button onclick="calcEfficiency()">📊 Հաշվել ՕԳԳ-ն</button>
+      <div class="result-box" id="efficiencyResult">—</div>
+      <div class="info-text">
+        📖 <strong>ՕԳԳ (%) = (Օգտակար / Ընդհանուր) × 100</strong><br>
+        ⚠️ Օգտակարը չի կարող մեծ լինել ընդհանուրից (հակառակ դեպքում ցույց կտա սխալ):<br>
+        💡 100% նշանակում է իդեալական համակարգ (առանց կորուստների):
+      </div>
+    </div>
 
-    <button onclick="calc()">🔥 հաշվել 🔥</button>
-
-    <div id="result">—</div>
-
-    <p class="example">📐 Օրինակ՝ 75Ջ / 150Ջ = 50%</p>
-
-    <div class="info">
-      <h3>📘 Ի՞նչ է ՕԳԳ-ն</h3>
-      <p>Օգտակար գործողության գործակիցը ցույց է տալիս, թե սարքին տրված ընդհանուր էներգիայի որ մասն է վերածվում օգտակար աշխատանքի։</p>
-      <ul>
-        <li><span class="unit">Բանաձև՝ η = (A_օգտ / A_ընդ) × 100%</span></li>
-        <li><span class="unit">Օգտակար էներգիա (Ջ)</span> – էներգիա, որն օգտագործվում է նպատակային աշխատանքի համար</li>
-        <li><span class="unit">Ընդհանուր էներգիա (Ջ)</span> – ամբողջ սպառված էներգիան</li>
-        <li><strong>100%</strong> նշանակում է իդեալական (առանց կորստի)</li>
-        <li><strong>↓ 100%</strong> ցույց է տալիս կորուստները (ջերմություն, շփում, դիմադրություն)</li>
-      </ul>
-      <p style="margin-top: 18px; border-top: 1px solid #ffd96633; padding-top: 18px;">🔹 <strong>Կարևոր է՝</strong> արևային վահանակներ, էլ․ շարժիչներ, մեքենաներ, տրանսֆորմատորներ — ամենուր ՕԳԳ-ն արդյունավետության գլխավոր չափանիշն է։</p>
+    <!-- ========= 2. ԱՐԵՎԱՅԻՆ ԷՆԵՐԳԻԱ (E = P * Hsun * eta) ========= -->
+    <div class="card">
+      <h2>☀️ Արևային էներգիա</h2>
+      <div class="input-group">
+        <label>🔋 Տեղադրված հզորություն (P<sub>inst</sub>) — կՎտ</label>
+        <input type="number" id="power" placeholder="օր. 5 կՎտ">
+      </div>
+      <div class="input-group">
+        <label>⏱️ Միջին օգտակար արևային ժամեր (Hsun) — ժամ/տարի</label>
+        <input type="number" id="sunHours" placeholder="օր. 1400 ժ (Հայաստան)">
+      </div>
+      <div class="input-group">
+        <label>📈 Համակարգի արդյունավետություն (η) — %</label>
+        <input type="number" id="systemEta" placeholder="15% - 22% (ֆոտովոլտային)" step="any" value="18">
+      </div>
+      <button onclick="calcSolar()">🌞 Հաշվել տարեկան արտադրությունը</button>
+      <div class="result-box" id="solarResult">—</div>
+      <div class="info-text">
+        📐 <strong>Բանաձև՝ E = P<sub>inst</sub> × H<sub>sun</sub> × (η/100)</strong><br>
+        🌍 <strong>E</strong> – տարեկան էներգիա (կՎտժ)<br>
+        🏔️ Հայաստանում H<sub>sun</sub> ~ 1300‑1500 ժ/տարի:<br>
+        🔧 η-ն ներառում է ինվերտորի, լարերի, փոշու կորուստներ (15‑22%):
+      </div>
     </div>
   </div>
 
-  <script>
-function calc() {
-  var useful = parseFloat(document.getElementById("useful").value);
-  var total = parseFloat(document.getElementById("total").value);
-  var result = document.getElementById("result");
+  <div class="footnote">
+    🇦🇲 Հայկական ինժեներական հաշվիչ | Էներգիայի արդյունավետություն + ՎԿԵ նախագծեր<br>
+    ⚡ Կայքը նախատեսված է կրթական և նախագծային նպատակների համար:
+  </div>
+</div>
 
-  if (isNaN(useful) || isNaN(total) || total === 0) {
-    result.innerHTML = "Խնդրում ենք մուտքագրել ճիշտ թվեր";
-    return;
+<script>
+  // === 1. ՕԳԳ հաշվիչ (ճիշտ ֆիզիկա) ===
+  function calcEfficiency() {
+    let useful = parseFloat(document.getElementById("useful").value);
+    let total = parseFloat(document.getElementById("total").value);
+    let resultDiv = document.getElementById("efficiencyResult");
+
+    if (isNaN(useful) || isNaN(total) || total === 0) {
+      resultDiv.innerHTML = "❌ Մուտքագրիր ճիշտ թվեր (ընդհանուրը չի կարող 0 լինել)";
+      resultDiv.style.color = "#ffaa88";
+      return;
+    }
+
+    if (useful > total) {
+      resultDiv.innerHTML = "⚠️ ՍԽԱԼ. Օգտակար էներգիան ՉԻ ԿԱՐՈՂ մեծ լինել ընդհանուրից: Ֆիզիկապես անհնար է:";
+      resultDiv.style.color = "#ff8a7a";
+      return;
+    }
+
+    let eta = (useful / total) * 100;
+    resultDiv.innerHTML = `✅ ՕԳԳ = ${eta.toFixed(2)} %`;
+    resultDiv.style.color = "#ffdd99";
+    
+    // Եթե eta-ն 100 է, ավելացնում ենք հուշում
+    if (eta === 100) {
+      resultDiv.innerHTML += "  (Իդեալական առանց կորուստների)";
+    } else if (eta > 90) {
+      resultDiv.innerHTML += "  🔥 Գերարդյունավետ համակարգ!";
+    }
   }
 
-  // ✅ Եթե օգտակարը մեծ է ընդհանուրից
-  if (useful > total) {
-    result.innerHTML = "⚠️ Սխալ․ Օգտակար էներգիան չի կարող մեծ լինել ընդհանուրից";
-    result.style.color = "#ff8888";
-    return;
-  }
+  // === 2. Արևային էներգիայի հաշվիչ (E = P * Hsun * (eta/100)) ===
+  function calcSolar() {
+    let power = parseFloat(document.getElementById("power").value);       // կՎտ
+    let sunHours = parseFloat(document.getElementById("sunHours").value); // ժամ
+    let efficiencyPercent = parseFloat(document.getElementById("systemEta").value); // %
 
-  var eta = (useful / total) * 100;
-  result.innerHTML = "ՕԳԳ = " + eta.toFixed(2) + " %";
-  result.style.color = "#ffe484";
-}
-  </script>
+    let resultDiv = document.getElementById("solarResult");
+
+    if (isNaN(power) || isNaN(sunHours) || isNaN(efficiencyPercent) || power <= 0 || sunHours <= 0) {
+      resultDiv.innerHTML = "❌ Լրացրու բոլոր դաշտերը դրական թվերով";
+      resultDiv.style.color = "#ffaa88";
+      return;
+    }
+
+    if (efficiencyPercent <= 0 || efficiencyPercent > 100) {
+      resultDiv.innerHTML = "⚠️ Արդյունավետությունը պետք է լինի 0-100% միջակայքում (սովորաբար 15-22%)";
+      resultDiv.style.color = "#ffaa88";
+      return;
+    }
+
+    let etaDecimal = efficiencyPercent / 100;
+    let energy_kWh = power * sunHours * etaDecimal;
+
+    // ձևավորում
+    let resultText = `🌞 Տարեկան արտադրություն ≈ ${energy_kWh.toFixed(1)} կՎտժ`;
+    if (energy_kWh >= 1000) {
+      resultText += ` (${(energy_kWh / 1000).toFixed(2)} ՄՎտժ)`;
+    }
+    resultDiv.innerHTML = resultText;
+    resultDiv.style.color = "#ffdd99";
+
+    // կարճ խորհուրդ
+    if (energy_kWh > 0 && energy_kWh < 500) {
+      resultDiv.innerHTML += "<br><span style='font-size:0.8rem'>📌 Փոքր համակարգ, կարելի է մեծացնել հզորությունը</span>";
+    } else if (energy_kWh > 8000) {
+      resultDiv.innerHTML += "<br><span style='font-size:0.8rem'>🏭 Խոշոր արևային կայան, գերազանց արդյունք</span>";
+    }
+  }
+</script>
 </body>
 </html>
