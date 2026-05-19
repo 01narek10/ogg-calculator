@@ -21,17 +21,18 @@
       overflow-x: hidden;
     }
 
-    /* հայկական զարդանախշեր */
+    /* հայկական զարդանախշեր - ավելի հարուստ */
     body::before {
       content: "⚡🇦🇲⚡";
       position: fixed;
       bottom: 20px;
       left: 20px;
-      font-size: 70px;
-      opacity: 0.05;
+      font-size: 100px;
+      opacity: 0.04;
       pointer-events: none;
-      transform: rotate(-10deg);
+      transform: rotate(-15deg);
       z-index: 0;
+      text-shadow: 0 0 20px #ffb347;
     }
 
     body::after {
@@ -39,12 +40,18 @@
       position: fixed;
       top: -20%;
       right: -10%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(255, 180, 60, 0.2), transparent 70%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 160, 60, 0.25), transparent 75%);
       border-radius: 50%;
-      filter: blur(80px);
+      filter: blur(100px);
       z-index: 0;
+      animation: pulseSlow 8s infinite alternate;
+    }
+
+    @keyframes pulseSlow {
+      0% { opacity: 0.3; transform: scale(1);}
+      100% { opacity: 0.8; transform: scale(1.2);}
     }
 
     /* ===== CONTAINER ===== */
@@ -62,13 +69,19 @@
     }
 
     .hero h1 {
-      font-size: 2.6rem;
-      background: linear-gradient(135deg, #FFE6B0 0%, #FFB347 50%, #FF7E5F 100%);
+      font-size: 3rem;
+      background: linear-gradient(135deg, #FFE6B0 0%, #FFB347 40%, #FF7E5F 80%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       letter-spacing: -0.5px;
-      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      text-shadow: 0 0 15px rgba(255,180,60,0.3);
+      animation: titleGlow 3s infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      0% { text-shadow: 0 0 5px rgba(255,180,60,0.2);}
+      100% { text-shadow: 0 0 25px rgba(255,180,60,0.5);}
     }
 
     .hero p {
@@ -90,32 +103,49 @@
 
     /* ===== UNIVERSAL CARD STYLE ===== */
     .card {
-      background: rgba(20, 30, 48, 0.55);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-radius: 48px;
-      padding: 1.8rem;
-      border: 1px solid rgba(255, 200, 100, 0.25);
-      box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.6);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: rgba(15, 25, 45, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 56px;
+      padding: 2rem 1.8rem;
+      border: 1px solid rgba(255, 200, 100, 0.3);
+      box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.7);
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      position: relative;
+      overflow: hidden;
     }
 
+    /* 3D hover effect */
     .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 35px 50px -20px black;
-      border-color: rgba(255, 200, 100, 0.5);
+      transform: translateY(-10px) scale(1.01);
+      box-shadow: 0 40px 60px -20px rgba(0,0,0,0.9);
+      border-color: rgba(255, 200, 100, 0.7);
+    }
+
+    /* decorative corner */
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(255,180,70,0.15) 0%, transparent 70%);
+      border-radius: 0 0 100% 0;
+      pointer-events: none;
     }
 
     .card h2 {
-      font-size: 1.9rem;
+      font-size: 2rem;
       font-weight: 700;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.6rem;
       display: flex;
       align-items: center;
       gap: 12px;
-      border-left: 5px solid #ffb347;
-      padding-left: 20px;
+      border-left: 6px solid #ffb347;
+      padding-left: 22px;
       color: #ffeaC0;
+      letter-spacing: -0.3px;
     }
 
     /* inputs group */
@@ -128,89 +158,106 @@
       color: #ccddf8;
       font-weight: 500;
       margin-bottom: 8px;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.5px;
+      font-size: 0.95rem;
     }
 
     input, select {
       width: 100%;
-      padding: 14px 18px;
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 180, 70, 0.5);
+      padding: 14px 20px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1.5px solid rgba(255, 180, 70, 0.5);
       border-radius: 60px;
       font-size: 1rem;
       color: #f5f0e0;
       outline: none;
-      transition: all 0.2s;
+      transition: all 0.25s ease;
     }
 
     input:focus, select:focus {
       border-color: #ffb347;
-      box-shadow: 0 0 10px #ffb34780;
+      box-shadow: 0 0 18px #ffb347aa;
       background: #0a101ccc;
+      transform: scale(1.01);
     }
 
+    /* button with ripple simulation */
     button {
       background: linear-gradient(100deg, #ffb347, #ff7e2e);
       border: none;
       width: 100%;
-      padding: 14px;
-      font-size: 1.2rem;
+      padding: 15px;
+      font-size: 1.25rem;
       font-weight: bold;
       color: #0c0f1a;
       border-radius: 60px;
       cursor: pointer;
       transition: all 0.2s ease;
       margin-top: 12px;
-      margin-bottom: 20px;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.3);
-      letter-spacing: 1px;
+      margin-bottom: 24px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+      letter-spacing: 1.5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255,255,200,0.5);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.4s, height 0.4s;
+    }
+
+    button:hover::after {
+      width: 300px;
+      height: 300px;
+      opacity: 0;
     }
 
     button:hover {
-      transform: scale(1.01);
+      transform: scale(1.02);
       background: linear-gradient(100deg, #ffc15e, #ff9142);
-      box-shadow: 0 8px 22px #ff8c2e80;
+      box-shadow: 0 8px 24px #ff8c2eaa;
     }
 
     .result-box {
-      background: rgba(0, 0, 0, 0.55);
-      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(12px);
       border-radius: 60px;
-      padding: 16px 20px;
+      padding: 18px 20px;
       text-align: center;
-      font-size: 1.7rem;
+      font-size: 1.6rem;
       font-weight: bold;
       color: #ffdd99;
-      border: 1px solid #ffb34766;
+      border: 1px solid #ffb34788;
       margin: 16px 0;
       word-break: break-word;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
     }
 
     .info-text {
       font-size: 0.85rem;
-      color: #9aaec9;
+      color: #b4c4e8;
       margin-top: 12px;
-      border-top: 1px solid #ffb34733;
-      padding-top: 14px;
-      line-height: 1.4;
-    }
-
-    .unit-badge {
-      background: #ffb34722;
-      border-radius: 30px;
-      padding: 4px 12px;
-      font-size: 0.75rem;
-      display: inline-block;
-      color: #ffcf8a;
+      border-top: 1px solid #ffb34744;
+      padding-top: 16px;
+      line-height: 1.5;
     }
 
     .footnote {
       text-align: center;
-      margin-top: 40px;
+      margin-top: 50px;
       font-size: 0.8rem;
-      color: #6c7fa0;
-      border-top: 1px solid #223344;
-      padding-top: 20px;
+      color: #7c8db0;
+      border-top: 1px solid #2a3a4a;
+      padding-top: 24px;
     }
 
     @media (max-width: 850px) {
@@ -218,10 +265,13 @@
         grid-template-columns: 1fr;
       }
       .hero h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
       .result-box {
         font-size: 1.3rem;
+      }
+      .card {
+        padding: 1.5rem;
       }
     }
   </style>
@@ -229,7 +279,8 @@
 <body>
 <div class="container">
   <div class="hero">
-    <h1>⚡ ԷՆԵՐԳԻԱՅԻ ՀԱՇՎԻՉՆԵՐ ⚡</h1>
+    <h1>⚡ ՀԱՇՎԻՉՆԵՐ ⚡</h1>
+    <p>ՕԳԳ + Արևային էներգիայի արտադրություն</p>
   </div>
 
   <div class="cards-grid">
@@ -248,8 +299,8 @@
       <div class="result-box" id="efficiencyResult">—</div>
       <div class="info-text">
         📖 <strong>ՕԳԳ (%) = (Օգտակար / Ընդհանուր) × 100</strong><br>
-        ⚠️ Օգտակարը չի կարող մեծ լինել ընդհանուրից (հակառակ դեպքում ցույց կտա սխալ):<br>
-        💡 100% նշանակում է իդեալական համակարգ (առանց կորուստների):
+        ⚠️ <strong>Օգտակարը չի կարող մեծ լինել ընդհանուրից</strong> – ֆիզիկական անհնարինություն:<br>
+        💡 Իրական համակարգերում ՕԳԳ-ն միշտ < 100% (կորուստների պատճառով):
       </div>
     </div>
 
@@ -286,7 +337,7 @@
 </div>
 
 <script>
-  // === 1. ՕԳԳ հաշվիչ (ճիշտ ֆիզիկա) ===
+  // === 1. ՕԳԳ հաշվիչ (ճիշտ ֆիզիկա, հեռացված 100% իդեալական համակարգ) ===
   function calcEfficiency() {
     let useful = parseFloat(document.getElementById("useful").value);
     let total = parseFloat(document.getElementById("total").value);
@@ -305,14 +356,16 @@
     }
 
     let eta = (useful / total) * 100;
-    resultDiv.innerHTML = `✅ ՕԳԳ = ${eta.toFixed(2)} %`;
+    // 100% միայն տեսական դեպքում (երբ useful == total), բայց իրականում չի լինում
+    if (eta === 100) {
+      resultDiv.innerHTML = `✅ ՕԳԳ = 100% (տեսական առավելագույն, իրականում անհասանելի)`;
+    } else {
+      resultDiv.innerHTML = `✅ ՕԳԳ = ${eta.toFixed(2)} %`;
+    }
     resultDiv.style.color = "#ffdd99";
     
-    // Եթե eta-ն 100 է, ավելացնում ենք հուշում
-    if (eta === 100) {
-      resultDiv.innerHTML += "  (Իդեալական առանց կորուստների)";
-    } else if (eta > 90) {
-      resultDiv.innerHTML += "  🔥 Գերարդյունավետ համակարգ!";
+    if (eta > 90 && eta < 100) {
+      resultDiv.innerHTML += "  🔥 Շատ բարձր արդյունավետություն!";
     }
   }
 
@@ -339,7 +392,6 @@
     let etaDecimal = efficiencyPercent / 100;
     let energy_kWh = power * sunHours * etaDecimal;
 
-    // ձևավորում
     let resultText = `🌞 Տարեկան արտադրություն ≈ ${energy_kWh.toFixed(1)} կՎտժ`;
     if (energy_kWh >= 1000) {
       resultText += ` (${(energy_kWh / 1000).toFixed(2)} ՄՎտժ)`;
@@ -347,7 +399,6 @@
     resultDiv.innerHTML = resultText;
     resultDiv.style.color = "#ffdd99";
 
-    // կարճ խորհուրդ
     if (energy_kWh > 0 && energy_kWh < 500) {
       resultDiv.innerHTML += "<br><span style='font-size:0.8rem'>📌 Փոքր համակարգ, կարելի է մեծացնել հզորությունը</span>";
     } else if (energy_kWh > 8000) {
